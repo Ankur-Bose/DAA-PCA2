@@ -1,0 +1,147 @@
+//binary search
+int binarysearch(int *arr, int low, int high, int target)
+{
+    while(low<high)
+    {
+        int mid = (low+high)/2;
+        if(target == mid)
+        {
+            return mid;
+        }
+        else if(target>mid)
+        {
+            return binarysearch(arr, mid+1, high, target);
+        }
+        else if(target<mid)
+        {
+            return binarysearch(arr,0, mid-1, target);
+        }
+    }
+    return -1;
+}
+
+
+
+
+
+//quick sort
+void quicksort(int *arr, int n)
+{
+    quick(arr, 0, n - 1);
+}
+void quick(int *arr, int low, int high)
+{
+    if (low < high)
+    {
+        int pivot = partition(arr, low, high);
+        quick(arr, low, pivot - 1);
+        quick(arr, pivot + 1, high);
+    }
+}
+int partition(int *arr, int low, int high)
+{
+    int i = low;
+    int pivot_value = high;
+    for (int j = low; j <= high; j++)
+    {
+        if (arr[j] < arr[pivot_value])
+        {
+            swap(&arr[i], &arr[j]);
+            i++;
+        }
+    }
+    swap(&arr[i], &arr[high]);
+    return i;
+}
+
+
+
+
+
+
+
+//merge sort
+#include<stdio.h>
+#include<stdlib.h>
+#define max 8
+int arr[max];
+
+void display(int *arr, int n)
+{
+    for(int i = 0; i < n; i++)
+    {
+        printf("%d ",arr[i]);
+    }
+}
+void mergesort(int low, int high)
+{
+    if(low<high)
+    {
+        int mid = (low+high) / 2;
+        mergesort(low,mid);
+        mergesort(mid+1,high);
+        merge(low,mid,high);
+    }
+}
+
+void merge(int low, int mid, int high)
+{
+    int i = low;
+    int j = mid+1;
+    int k = low;
+    int temp[max];
+    while((i<=mid&&j<=high))
+    {
+        if(arr[i]<arr[j])
+        {
+            temp[k++] = arr[i++];
+        }
+        else
+        {
+            temp[k++] = arr[j++];
+        }
+    }
+    while (i<=mid)
+    {
+        temp[k++] = arr[i++];
+    }
+    while (j<=high)
+    {
+        temp[k++] = arr[j++];
+    }
+    for(i=low;i<=high;i++)
+    {
+        arr[i]=temp[i];
+    }
+}
+int main()
+{
+    int n;
+    printf("Enter size of array \n");
+    scanf("%d",&n);
+    printf("Enter the elements ");
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    mergesort(0,n-1);
+    display(arr,n);
+return 0 ; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//heap sort
